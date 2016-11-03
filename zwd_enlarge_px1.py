@@ -17,7 +17,15 @@ def enlarge_pxs(image, layer,t_num):
 		layer : layer The layer of the image that is selected.
 		t_num : enlarge num
 	'''
-	gimp.message(t_num)
+	# Get the layer position.
+	pos = 0;
+	for i in range(len(image.layers)):
+		if(image.layers[i] == layer):
+			pos = i
+	# Create a new layer to save the results
+	newLayer = gimp.Layer(image, layer.name + "_"+str(t_num)+"enlarge", layer.width*t_num, layer.height*t_num, layer.type, layer.opacity, layer.mode)
+	image.add_layer(newLayer, pos)
+	gimp.message("输入的是"+str(t_num))
 
 register(
 	"python_fu_zwd_enlarge_pxs",
@@ -29,7 +37,7 @@ register(
 	"<Image>/Filters/zwd/enlarge pxs",
 	"*",
 	[
-		(PF_STRING, "t_num", "只能输入整数",2)
+		(PF_INT8, "t_num", "只能输入整数",2)
 	],
 	[],
 	enlarge_pxs
