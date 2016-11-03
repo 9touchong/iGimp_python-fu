@@ -50,8 +50,8 @@ def enlarge_pxs(image, layer,t_num):
 			for y in range(layer.height):
 				pixel = srcRgn[x,y]
 				#Update Update points in dstRgn
-				for new_x in range((x-1)*t_num+1,(x-1)*t_num+1+t_num):
-					for new_y in range((y-1)*t_num+1,(x-1)*t_num+1+t_num):
+				for new_x in range(x*t_num,x*t_num+t_num):
+					for new_y in range(y*t_num,x*t_num+t_num):
 						dstRgn[new_x,new_y]=pixel
 		# Update the new layer.
 		newLayer.flush()
