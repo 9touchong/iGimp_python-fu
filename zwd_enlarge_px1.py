@@ -8,6 +8,13 @@
 #                        。。。   。。。。
 #                                 。。。。
 #-------------------------------------------------------------
+# It can be executed by selecting the menu option: 'Filters/zwd/enlarge pxs'
+# or by writing the following lines in the Python console (that can be opened with the
+# menu option 'Filters/Python-Fu/Console'):
+# >>> image = gimp.image_list()[0]
+# >>> layer = image.layers[0]
+# >>> t_num=2
+# >>> gimp.pdb.python_fu_zwd_enlarge_pxs(image, layer,t_num)
 from gimpfu import *
 
 def enlarge_pxs(image, layer,t_num):
@@ -42,7 +49,10 @@ def enlarge_pxs(image, layer,t_num):
 			gimp.progress_update(float(x) / float(layer.width))
 			for y in range(layer.height):
 				pixel = srcRgn[x,y]
-				dstRgn[x,y]=pixel
+				#Update Update points in dstRgn
+				for new_x in range((x-1)*t_num+1,(x-1)*t_num+1+t_num):
+					for new_y in range((y-1)*t_num+1,(x-1)*t_num+1+t_num):
+						dstRgn[new_x,new_y]=pixel
 		# Update the new layer.
 		newLayer.flush()
 		newLayer.merge_shadow(True)
