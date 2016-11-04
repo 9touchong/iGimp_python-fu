@@ -7,6 +7,7 @@
 #            。-》。。-》。。。-》。。。。
 #                        。。。   。。。。
 #                                 。。。。
+#在zwd_enlarge_px1.py基础上 些许优化
 #-------------------------------------------------------------
 # It can be executed by selecting the menu option: 'Filters/zwd/enlarge pxs'
 # or by writing the following lines in the Python console (that can be opened with the
@@ -14,8 +15,7 @@
 # >>> image = gimp.image_list()[0]
 # >>> layer = image.layers[0]
 # >>> t_num=2
-# >>> gimp.pdb.python_fu_zwd_enlarge_pxs_1(image, layer,t_num)
-#Fri, 04 Nov 2016 11:35:57 +0800	停止改动
+# >>> gimp.pdb.python_fu_zwd_enlarge_pxs_2(image, layer,t_num)
 from gimpfu import *
 import datetime
 
@@ -26,7 +26,7 @@ def enlarge_pxs(image, layer,t_num):
 		layer : layer The layer of the image that is selected.
 		t_num : enlarge num
 	'''
-	t_starttime=datetime.datetime.now();
+	t_starttime=datetime.datetime.now()
 	# Indicates that the process has started
 	gimp.progress_init("enlargeing " + layer.name + "...")
 	#Set up an undo group, so the operation will be undone in one step.
@@ -52,6 +52,8 @@ def enlarge_pxs(image, layer,t_num):
 			gimp.progress_update(float(x) / float(layer.width))
 			for y in range(layer.height):
 				pixel = srcRgn[x,y]
+				if pixel[3]=="\x00":
+					continue
 				#Update Update points in dstRgn
 				for new_x in range(x*t_num,x*t_num+t_num):
 					for new_y in range(y*t_num,y*t_num+t_num):
@@ -67,16 +69,16 @@ def enlarge_pxs(image, layer,t_num):
 	# End progress.
 	pdb.gimp_progress_end()
 	t_endtime=datetime.datetime.now()
-	gimp.message("耗时:"+str(t_endtime-t_starttime))
+	gimp.message("耗时"+str(t_endtime-t_starttime))
 
 register(
-	"python_fu_zwd_enlarge_pxs_1",
+	"python_fu_zwd_enlarge_pxs_2",
 	"放大像素",
 	"在新图层上放大原图层所有像素",
 	"zwd",
 	"Open source (BSD 3-clause license)",
 	"2013",
-	"<Image>/Filters/zwd/enlarge pxs 1",
+	"<Image>/Filters/zwd/enlarge pxs 2",
 	"*",
 	[
 		(PF_INT8, "t_num", "只能输入整数",2)
