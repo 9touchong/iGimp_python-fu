@@ -14,7 +14,8 @@
 # >>> image = gimp.image_list()[0]
 # >>> layer = image.layers[0]
 # >>> t_num=2
-# >>> gimp.pdb.python_fu_zwd_enlarge_pxs(image, layer,t_num)
+# >>> gimp.pdb.python_fu_zwd_enlarge_pxs_1(image, layer,t_num)
+#Fri, 04 Nov 2016 11:35:57 +0800	停止改动
 from gimpfu import *
 
 def enlarge_pxs(image, layer,t_num):
@@ -65,13 +66,13 @@ def enlarge_pxs(image, layer,t_num):
 	pdb.gimp_progress_end()
 
 register(
-	"python_fu_zwd_enlarge_pxs",
+	"python_fu_zwd_enlarge_pxs_1",
 	"放大像素",
 	"在新图层上放大原图层所有像素",
 	"zwd",
 	"Open source (BSD 3-clause license)",
 	"2013",
-	"<Image>/Filters/zwd/enlarge pxs _1",
+	"<Image>/Filters/zwd/enlarge pxs 1",
 	"*",
 	[
 		(PF_INT8, "t_num", "只能输入整数",2)
