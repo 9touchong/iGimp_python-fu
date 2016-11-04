@@ -71,7 +71,7 @@ register(
 	"zwd",
 	"Open source (BSD 3-clause license)",
 	"2013",
-	"<Image>/Filters/zwd/enlarge pxs",
+	"<Image>/Filters/zwd/enlarge pxs _1",
 	"*",
 	[
 		(PF_INT8, "t_num", "只能输入整数",2)
